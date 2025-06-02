@@ -1,77 +1,109 @@
+:root {
+    --color-bg: #333;
+    --color-container-bg: #fff;
+    --color-primary: #6e8efb;
+    --color-secondary: #a777e3;
+    --color-heading-gradient: linear-gradient(90deg, #6e8efb, #a777e3);
+    --color-code-bg: #23272e;
+    --color-code-text: #fff;
+    --color-btn-bg: #6e8efb;
+    --color-btn-bg-hover: #a777e3;
+    --color-btn-copy: #a777e3;
+    --color-btn-copy-hover: #6e8efb;
+    --color-border: #ccc;
+    --color-border-light: #e0e0e0;
+    --color-example-bg: #f3f3f3;
+    --color-example-hover: #e0e0e0;
+    --color-api-prefix: #888;
+    --font-main: 'JetBrains Mono', monospace;
+    --radius: 16px;
+    --radius-small: 6px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
 body {
-    background-color: #333;
+    background-color: var(--color-bg);
     min-height: 100vh;
     margin: 0;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: var(--font-main);
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 .container {
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    background: var(--color-container-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
     padding: 2rem;
     margin-top: 3rem;
     max-width: 600px;
     width: 100%;
 }
 h1 {
-    text-align: center;
-    background: linear-gradient(90deg, #6e8efb, #a777e3);
+    text-align: left;
+    background: var(--color-heading-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 2.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 2rem;
+    margin-top: 0;
 }
 .endpoint-builder {
     display: flex;
     gap: 0.5rem;
     margin-bottom: 1rem;
+    flex-wrap: wrap;
 }
 .endpoint-builder input {
     flex: 1;
     padding: 0.5rem;
     font-size: 1rem;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+    border-radius: var(--radius-small);
+    border: 1px solid var(--color-border);
 }
 .endpoint-builder button {
-    background: #6e8efb;
+    background: var(--color-btn-bg);
     color: #fff;
     border: none;
-    border-radius: 6px;
+    border-radius: var(--radius-small);
     padding: 0.5rem 1rem;
     font-size: 1rem;
     cursor: pointer;
     transition: background 0.2s;
 }
 .endpoint-builder button:hover {
-    background: #a777e3;
+    background: var(--color-btn-bg-hover);
 }
 .response-preview {
-    background: #23272e;
-    color: #fff;
+    background: var(--color-code-bg);
+    color: var(--color-code-text);
     border-radius: 8px;
     padding: 1rem;
     font-size: 1rem;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: var(--font-main);
     margin-bottom: 1rem;
     min-height: 120px;
-    overflow-x: auto;
-    white-space: pre;
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    text-wrap: normal;
 }
 .copy-btn {
-    background: #a777e3;
+    background: var(--color-btn-copy);
     color: #fff;
     border: none;
-    border-radius: 6px;
+    border-radius: var(--radius-small);
     padding: 0.3rem 0.8rem;
     font-size: 0.95rem;
     cursor: pointer;
-    float: right;
-    margin-top: -2.2rem;
     margin-right: 0.5rem;
+    margin-bottom: 0.2rem;
+    transition: background 0.2s;
+}
+.copy-btn:hover {
+    background: var(--color-btn-copy-hover);
+}
+.response-container {
+    position: relative;
 }
 .examples {
     margin-top: 2rem;
@@ -86,16 +118,22 @@ h1 {
     gap: 0.5rem;
 }
 .example-btn {
-    background: #f3f3f3;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
+    background: var(--color-example-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-small);
     padding: 0.4rem 0.8rem;
     cursor: pointer;
     font-size: 0.95rem;
     transition: background 0.2s;
 }
 .example-btn:hover {
-    background: #e0e0e0;
+    background: var(--color-example-hover);
+}
+.api-prefix {
+    align-self: center;
+    color: var(--color-api-prefix);
+    display: flex;
+    align-items: center;
 }
 @media (max-width: 600px) {
     .container {
@@ -105,13 +143,4 @@ h1 {
     h1 {
         font-size: 1.5rem;
     }
-}
-.api-prefix {
-    align-self: center;
-    color: #888;
-    display: flex;
-    align-items: center;
-}
-.response-container {
-    position: relative;
 }

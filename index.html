@@ -14,10 +14,12 @@
             <span class="api-prefix">/api/</span>
             <input type="text" id="endpointInput" placeholder="weather/today" required>
             <input type="text" id="fieldsInput" placeholder="fields (optional: name,type,power)">
-            <button type="submit">Try It Live</button>
+            <div>
+                <button class="copy-btn" id="copyUrlBtn" title="Copy URL">Copy URL</button>
+                <button type="submit">Try It Live</button>
+            </div>
         </form>
         <div class="response-container">
-            <button class="copy-btn" id="copyUrlBtn" title="Copy URL">Copy URL</button>
             <div class="response-preview" id="responsePreview">Response will appear here...</div>
         </div>
         <div class="examples">
