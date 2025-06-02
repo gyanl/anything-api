@@ -1,146 +1,276 @@
 :root {
-    --color-bg: #333;
-    --color-container-bg: #fff;
-    --color-primary: #6e8efb;
-    --color-secondary: #a777e3;
-    --color-heading-gradient: linear-gradient(90deg, #6e8efb, #a777e3);
-    --color-code-bg: #23272e;
-    --color-code-text: #fff;
-    --color-btn-bg: #6e8efb;
-    --color-btn-bg-hover: #a777e3;
-    --color-btn-copy: #a777e3;
-    --color-btn-copy-hover: #6e8efb;
-    --color-border: #ccc;
-    --color-border-light: #e0e0e0;
-    --color-example-bg: #f3f3f3;
-    --color-example-hover: #e0e0e0;
-    --color-api-prefix: #888;
-    --font-main: 'JetBrains Mono', monospace;
-    --radius: 16px;
-    --radius-small: 6px;
-    --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  --primary-bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --primary-color: #667eea;
+  --primary-color-dark: #5a6fd8;
+  --secondary-color: #764ba2;
+  --success-color: #28a745;
+  --success-color-dark: #218838;
+  --text-color: #333;
+  --text-color-light: #666;
+  --text-color-lighter: #999;
+  --header-color: #2c3e50;
+  --card-bg: #fff;
+  --card-radius: 16px;
+  --card-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  --input-bg: #f8f9fa;
+  --input-border: #e9ecef;
+  --input-radius: 8px;
+  --input-padding: 12px;
+  --mono-font: 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  --sans-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --transition: 0.3s ease;
+  --btn-radius: 6px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background-color: var(--color-bg);
-    min-height: 100vh;
-    margin: 0;
-    font-family: var(--font-main);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  font-family: var(--sans-font);
+  line-height: 1.6;
+  color: var(--text-color);
+  background: var(--primary-bg-gradient);
+  min-height: 100vh;
 }
+
 .container {
-    background: var(--color-container-bg);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 2rem;
-    margin-top: 3rem;
-    max-width: 600px;
-    width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
 }
-h1 {
-    text-align: left;
-    background: var(--color-heading-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    margin-top: 0;
+
+.header {
+  text-align: center;
+  color: white;
+  margin-bottom: 40px;
 }
-.endpoint-builder {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
+
+.header h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
-.endpoint-builder input {
-    flex: 1;
-    padding: 0.5rem;
-    font-size: 1rem;
-    border-radius: var(--radius-small);
-    border: 1px solid var(--color-border);
+
+.header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-bottom: 30px;
 }
-.endpoint-builder button {
-    background: var(--color-btn-bg);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius-small);
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.2s;
+
+.main-card {
+  background: var(--card-bg);
+  border-radius: var(--card-radius);
+  padding: 30px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 30px;
 }
-.endpoint-builder button:hover {
-    background: var(--color-btn-bg-hover);
+
+.api-builder {
+  margin-bottom: 30px;
 }
-.response-preview {
-    background: var(--color-code-bg);
-    color: var(--color-code-text);
-    border-radius: 8px;
-    padding: 1rem;
-    font-size: 1rem;
-    font-family: var(--font-main);
-    margin-bottom: 1rem;
-    min-height: 120px;
-    overflow-x: hidden;
-    white-space: pre-wrap;
-    text-wrap: normal;
+
+.api-builder h2 {
+  color: var(--header-color);
+  margin-bottom: 20px;
+  font-size: 1.5rem;
 }
+
+.url-builder {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  background: var(--input-bg);
+  border-radius: var(--input-radius);
+  padding: 10px;
+  border: 2px solid var(--input-border);
+  transition: border-color var(--transition);
+}
+
+.url-builder:focus-within {
+  border-color: var(--primary-color);
+}
+
+.url-prefix {
+  color: var(--text-color-light);
+  font-weight: 500;
+  white-space: nowrap;
+  margin-right: 5px;
+}
+
+.endpoint-input {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  padding: 5px;
+  outline: none;
+  flex: 1;
+  min-width: 0;
+}
+
+.endpoint-input::placeholder {
+  color: var(--text-color-lighter);
+}
+
+.fields-section {
+  margin-bottom: 20px;
+}
+
+.fields-section label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-color-light);
+  font-weight: 500;
+}
+
+.fields-input {
+  width: 100%;
+  padding: var(--input-padding);
+  border: 2px solid var(--input-border);
+  border-radius: var(--input-radius);
+  font-size: 16px;
+  transition: border-color var(--transition);
+}
+
+.fields-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.generated-url {
+  background: var(--input-bg);
+  border: 2px solid var(--input-border);
+  border-radius: var(--input-radius);
+  padding: 15px;
+  font-family: var(--mono-font);
+  font-size: 14px;
+  word-break: break-all;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.btn {
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--btn-radius);
+  cursor: pointer;
+  transition: background-color var(--transition), transform var(--transition);
+  font-size: 16px;
+  padding: 12px 24px;
+  margin-right: 10px;
+}
+
 .copy-btn {
-    background: var(--color-btn-copy);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius-small);
-    padding: 0.3rem 0.8rem;
-    font-size: 0.95rem;
-    cursor: pointer;
-    margin-right: 0.5rem;
-    margin-bottom: 0.2rem;
-    transition: background 0.2s;
+  background: var(--primary-color);
 }
+
 .copy-btn:hover {
-    background: var(--color-btn-copy-hover);
+  background: var(--primary-color-dark);
 }
-.response-container {
-    position: relative;
+
+.copy-btn:active {
+  transform: translateY(1px);
 }
+
+.try-btn {
+  background: var(--success-color);
+}
+
+.try-btn:hover {
+  background: var(--success-color-dark);
+}
+
+.try-btn:active {
+  transform: translateY(1px);
+}
+
+.open-url {
+  background: var(--primary-color);
+}
+
+.open-url:hover {
+  background: var(--primary-color-dark);
+}
+
+.open-url:active {
+  transform: translateY(1px);
+}
+
 .examples {
-    margin-top: 2rem;
+  margin-top: 30px;
 }
-.examples h2 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
+
+.examples h3 {
+  color: var(--header-color);
+  margin-bottom: 15px;
 }
-.example-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+
+.example-item {
+  background: var(--input-bg);
+  padding: 15px;
+  border-radius: var(--input-radius);
+  margin-bottom: 10px;
+  border-left: 4px solid var(--primary-color);
 }
-.example-btn {
-    background: var(--color-example-bg);
-    border: 1px solid var(--color-border-light);
-    border-radius: var(--radius-small);
-    padding: 0.4rem 0.8rem;
-    cursor: pointer;
-    font-size: 0.95rem;
-    transition: background 0.2s;
+
+.example-endpoint {
+  font-family: var(--mono-font);
+  color: var(--primary-color);
+  font-weight: 500;
+  margin-bottom: 5px;
 }
-.example-btn:hover {
-    background: var(--color-example-hover);
+
+.example-description {
+  color: var(--text-color-light);
+  font-size: 14px;
 }
-.api-prefix {
-    align-self: center;
-    color: var(--color-api-prefix);
-    display: flex;
-    align-items: center;
+
+.response-preview {
+  background: var(--input-bg);
+  border-radius: var(--input-radius);
+  padding: 20px;
+  margin-top: 20px;
+  display: none;
 }
+
+.response-preview h4 {
+  margin-bottom: 10px;
+  color: var(--header-color);
+}
+
+.response-content {
+  background: var(--card-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  padding: 15px;
+  font-family: var(--mono-font);
+  font-size: 14px;
+  white-space: pre-wrap;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.loading {
+  color: var(--text-color-light);
+  font-style: italic;
+}
+
 @media (max-width: 600px) {
-    .container {
-        padding: 1rem;
-        margin-top: 1rem;
-    }
-    h1 {
-        font-size: 1.5rem;
-    }
-}
+  .header h1 {
+    font-size: 2rem;
+  }
+  .main-card {
+    padding: 20px;
+  }
+  .url-builder {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .url-prefix {
+    margin-bottom: 5px;
+  }
+} 
