@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "functions": {
+    "api/[...catchall].js": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  },
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/[...catchall].js" }
+  ],
+  "build": {
+    "env": {
+      "NODE_VERSION": "18.x"
+    }
+  },
+  "public": true
+} 

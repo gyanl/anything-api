@@ -1,0 +1,18 @@
+{
+  "name": "anything-api",
+  "version": "1.0.0",
+  "description": "A serverless API that generates creative AI-powered responses for any endpoint.",
+  "main": "api/[...catchall].js",
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "node api/[...catchall].js"
+  },
+  "dependencies": {
+    "openai": "^4.28.0"
+  },
+  "engines": {
+    "node": "18.x"
+  },
+  "author": "",
+  "license": "ISC"
+} 
