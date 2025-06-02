@@ -27,26 +27,18 @@ module.exports = async (req, res) => {
       systemPrompt += ` Please include only the following fields in your response: ${fields}.`;
     }
 
-    // Placeholder for actual AI call
-    // const completion = await openai.chat.completions.create({
-    //   model: "gpt-4.1-mini", // or "gpt-4o-mini"
-    //   messages: [
-    //     { role: "system", content: systemPrompt },
-    //     { role: "user", content: `Generate a creative JSON response for the endpoint: ${path}` }
-    //   ],
-    //   response_format: { type: "json_object" },
-    //   max_tokens: 400,
-    // });
-
-    // let aiResponse = completion.choices[0].message.content;
-
-    // Placeholder response
-    const aiResponse = JSON.stringify({
-      message: "AI response for " + path + " coming soon!",
-      requestedPath: path,
-      requestedFields: fields || 'all',
-      timestamp: new Date().toISOString(),
+    // Actual AI call
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4-1106-preview", // Use gpt-4.1-mini or gpt-4-1106-preview as available
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: `Generate a creative JSON response for the endpoint: ${path}` }
+      ],
+      response_format: { type: "json_object" },
+      max_tokens: 400,
     });
+
+    let aiResponse = completion.choices[0].message.content;
 
     // Attempt to parse the AI response to ensure it's valid JSON
     let jsonResponse;

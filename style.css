@@ -1,5 +1,5 @@
 body {
-    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    background-color: #333;
     min-height: 100vh;
     margin: 0;
     font-family: 'JetBrains Mono', monospace;
@@ -105,4 +105,13 @@ h1 {
     h1 {
         font-size: 1.5rem;
     }
+}
+.api-prefix {
+    align-self: center;
+    color: #888;
+    display: flex;
+    align-items: center;
+}
+.response-container {
+    position: relative;
 }
