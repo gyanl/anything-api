@@ -1,6 +1,6 @@
 :root {
     --background-color: #3B4041;
-    --accent-color: #73cbad;
+    --accent-color: #74bbbc;
     --text-color: #fff;
     --text-color-light: rgba(255, 255, 255, 0.7);
     --text-color-lighter: #999;
@@ -103,7 +103,7 @@ body {
     color: var(--text-color-light);
     font-weight: 500;
     white-space: nowrap;
-    margin-right: 5px;
+    margin-right: 2px;
     font-size: var(--font-size-base);
 }
 
@@ -250,15 +250,13 @@ button:active {
     font-style: italic;
 }
 
+
 @media (max-width: 600px) {
-    
-
-    .url-builder {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .url-prefix {
-        margin-bottom: 5px;
+    button {
+        gap: 8px;
+        font-size: 14px;
+        padding: 8px 14px 8px 12px;
+        margin-right: 2px;
+        margin-bottom: 6px;
     }
 }
