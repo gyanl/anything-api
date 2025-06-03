@@ -1,276 +1,264 @@
 :root {
-  --primary-bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --primary-color: #667eea;
-  --primary-color-dark: #5a6fd8;
-  --secondary-color: #764ba2;
-  --success-color: #28a745;
-  --success-color-dark: #218838;
-  --text-color: #333;
-  --text-color-light: #666;
-  --text-color-lighter: #999;
-  --header-color: #2c3e50;
-  --card-bg: #fff;
-  --card-radius: 16px;
-  --card-shadow: 0 20px 40px rgba(0,0,0,0.1);
-  --input-bg: #f8f9fa;
-  --input-border: #e9ecef;
-  --input-radius: 8px;
-  --input-padding: 12px;
-  --mono-font: 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-  --sans-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --transition: 0.3s ease;
-  --btn-radius: 6px;
+    --background-color: #3B4041;
+    --accent-color: #73cbad;
+    --text-color: #fff;
+    --text-color-light: rgba(255, 255, 255, 0.7);
+    --text-color-lighter: #999;
+    --header-color: #2c3e50;
+    --card-bg: #fff;
+    --card-radius: 16px;
+    --input-bg: #333333;
+    --input-border: #565656;
+    --input-radius: 8px;
+    --mono-font: 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    --transition: 0.1s ease;
+    --btn-radius: 6px;
+
+    --font-size-base: 16px;
+
+    --button-color: #333333;
+    --button-color-dark:#282828; 
+
+    --pad-left: 4px;
+}
+
+.pad-left {
+    padding-left: var(--pad-left);
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: var(--sans-font);
-  line-height: 1.6;
-  color: var(--text-color);
-  background: var(--primary-bg-gradient);
-  min-height: 100vh;
+    font-family: var(--mono-font);
+    line-height: 1.6;
+    color: var(--text-color);
+    background: var(--background-color);
+    min-height: 100vh;
+}
+
+.secondary {
+    color: var(--text-color-light);
+    padding-bottom: 12px;
 }
 
 .container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 .header {
-  text-align: center;
-  color: white;
-  margin-bottom: 40px;
+    color: white;
+    padding: 8px var(--pad-left) 0 var(--pad-left);
+
 }
 
 .header h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
 }
 
 .header p {
-  font-size: 1.2rem;
-  opacity: 0.9;
-  margin-bottom: 30px;
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 30px;
 }
 
 .main-card {
-  background: var(--card-bg);
-  border-radius: var(--card-radius);
-  padding: 30px;
-  box-shadow: var(--card-shadow);
-  margin-bottom: 30px;
+
+    margin-bottom: 30px;
 }
 
 .api-builder {
-  margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 .api-builder h2 {
-  color: var(--header-color);
-  margin-bottom: 20px;
-  font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 20px;
+    font-size: 1.5rem;
 }
 
 .url-builder {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  background: var(--input-bg);
-  border-radius: var(--input-radius);
-  padding: 10px;
-  border: 2px solid var(--input-border);
-  transition: border-color var(--transition);
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    background: var(--input-bg);
+    border-radius: var(--input-radius);
+    padding: 10px 16px;
+    border: 1px solid var(--input-border);
+    transition: border-color var(--transition);
 }
 
 .url-builder:focus-within {
-  border-color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 .url-prefix {
-  color: var(--text-color-light);
-  font-weight: 500;
-  white-space: nowrap;
-  margin-right: 5px;
+    color: var(--text-color-light);
+    font-weight: 500;
+    white-space: nowrap;
+    margin-right: 5px;
+    font-size: var(--font-size-base);
 }
 
 .endpoint-input {
-  border: none;
-  background: transparent;
-  font-size: 16px;
-  padding: 5px;
-  outline: none;
-  flex: 1;
-  min-width: 0;
+    font-family: var(--mono-font);
+    color: var(--text-color);
+    border: none;
+    background: transparent;
+    font-size: var(--font-size-base);
+    padding: 5px;
+    outline: none;
+    flex: 1;
+    min-width: 0;
 }
 
 .endpoint-input::placeholder {
-  color: var(--text-color-lighter);
+    color: var(--text-color-lighter);
 }
 
 .fields-section {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .fields-section label {
-  display: block;
-  margin-bottom: 8px;
-  color: var(--text-color-light);
-  font-weight: 500;
+    display: block;
+    margin-bottom: 8px;
+    padding-left: var(--pad-left);
+    color: var(--text-color-light);
+    font-weight: 500;
 }
 
 .fields-input {
-  width: 100%;
-  padding: var(--input-padding);
-  border: 2px solid var(--input-border);
-  border-radius: var(--input-radius);
-  font-size: 16px;
-  transition: border-color var(--transition);
+    color: var(--text-color);
+    font-family: var(--mono-font);
+    width: 100%;
+    background: var(--input-bg);
+    padding: 14px 20px;
+    border: 1px solid var(--input-border);
+    border-radius: var(--input-radius);
+    font-size: var(--font-size-base);
+    transition: border-color var(--transition);
 }
 
 .fields-input:focus {
-  outline: none;
-  border-color: var(--primary-color);
+    outline: none;
+    border-color: var(--primary-color);
 }
 
 .generated-url {
-  background: var(--input-bg);
-  border: 2px solid var(--input-border);
-  border-radius: var(--input-radius);
-  padding: 15px;
-  font-family: var(--mono-font);
-  font-size: 14px;
-  word-break: break-all;
-  margin-bottom: 15px;
-  position: relative;
+    border-radius: var(--input-radius);
+    padding: 0 0 0 var(--pad-left);
+    font-family: var(--mono-font);
+    font-size: var(--font-size-base);
+    word-break: break-all;
+    margin-bottom: 15px;
+    position: relative;
 }
 
-.btn {
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: var(--btn-radius);
-  cursor: pointer;
-  transition: background-color var(--transition), transform var(--transition);
-  font-size: 16px;
-  padding: 12px 24px;
-  margin-right: 10px;
+button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono-font);
+    color: var(--text-color);
+    background: var(--button-color);
+    border: none;
+    padding: 12px 24px 12px 20px;
+    border-radius: var(--btn-radius);
+    cursor: pointer;
+    font-size: var(--font-size-base);
+    margin-right: 4px;
+    margin-bottom: 8px;
+    transition: background-color var(--transition), transform var(--transition);
 }
 
-.copy-btn {
-  background: var(--primary-color);
+button:hover {
+    transform: translateY(-1px);
+    background: var(--button-color-dark);
 }
 
-.copy-btn:hover {
-  background: var(--primary-color-dark);
+button:active {
+    transform: translateY(1px);
 }
 
-.copy-btn:active {
-  transform: translateY(1px);
-}
-
-.try-btn {
-  background: var(--success-color);
-}
-
-.try-btn:hover {
-  background: var(--success-color-dark);
-}
-
-.try-btn:active {
-  transform: translateY(1px);
-}
-
-.open-url {
-  background: var(--primary-color);
-}
-
-.open-url:hover {
-  background: var(--primary-color-dark);
-}
-
-.open-url:active {
-  transform: translateY(1px);
-}
 
 .examples {
-  margin-top: 30px;
-}
-
-.examples h3 {
-  color: var(--header-color);
-  margin-bottom: 15px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .example-item {
-  background: var(--input-bg);
-  padding: 15px;
-  border-radius: var(--input-radius);
-  margin-bottom: 10px;
-  border-left: 4px solid var(--primary-color);
+    background: var(--input-bg);
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    transition: background-color var(--transition);
+    border-radius: var(--input-radius);
+}
+
+.example-item:hover {
+    background: var(--button-color-dark);
+    transform: translateY(-1px);
 }
 
 .example-endpoint {
-  font-family: var(--mono-font);
-  color: var(--primary-color);
-  font-weight: 500;
-  margin-bottom: 5px;
+    font-family: var(--mono-font);
+    color: var(--accent-color);
+    font-weight: 500;
+    margin-bottom: 5px;
 }
 
 .example-description {
-  color: var(--text-color-light);
-  font-size: 14px;
+    color: var(--text-color-light);
+    font-size: 14px;
 }
 
 .response-preview {
-  background: var(--input-bg);
-  border-radius: var(--input-radius);
-  padding: 20px;
-  margin-top: 20px;
-  display: none;
+    background: var(--input-bg);
+    border-radius: var(--input-radius);
+    padding: 20px;
+    margin-top: 20px;
+    display: none;
 }
 
 .response-preview h4 {
-  margin-bottom: 10px;
-  color: var(--header-color);
+    margin-bottom: 10px;
 }
 
 .response-content {
-  background: var(--card-bg);
-  border: 1px solid var(--input-border);
-  border-radius: 6px;
-  padding: 15px;
-  font-family: var(--mono-font);
-  font-size: 14px;
-  white-space: pre-wrap;
-  max-height: 300px;
-  overflow-y: auto;
+    background-color: var(--button-color-dark);
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    padding: 15px;
+    font-family: var(--mono-font);
+    font-size: 14px;
+    white-space: pre-wrap;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 .loading {
-  color: var(--text-color-light);
-  font-style: italic;
+    color: var(--text-color-light);
+    font-style: italic;
 }
 
 @media (max-width: 600px) {
-  .header h1 {
-    font-size: 2rem;
-  }
-  .main-card {
-    padding: 20px;
-  }
-  .url-builder {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .url-prefix {
-    margin-bottom: 5px;
-  }
-} 
+    
+
+    .url-builder {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .url-prefix {
+        margin-bottom: 5px;
+    }
+}

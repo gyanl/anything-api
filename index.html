@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Gyan's Anything API - Turn any idea into an API endpoint with AI-powered creative responses">
+    <meta name="description"
+        content="Gyan's Anything API - Turn any idea into an API endpoint with AI-powered creative responses">
     <meta name="keywords" content="API, AI, creative responses, Gyan Lakhwani, Gyan's Anything API">
     <meta name="author" content="Gyan Lakhwani">
     <meta name="robots" content="index, follow">
@@ -14,45 +16,71 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <header class="header">
-            <h1>Gyan's Anything API</h1>
-            <p>Turn any idea into an API endpoint with AI-powered creative responses</p>
+            <h1>gyanl's Anything API</h1>
+            <p class="secondary">This API will provide a JSON response at any endpoint. Try making your own endpoint
+                below, or use one of
+                the examples.</p>
         </header>
 
         <div class="main-card">
             <div class="api-builder">
-                <h2>✨ Build Your API Endpoint</h2>
-                
+
                 <div class="url-builder">
                     <span class="url-prefix">api.gyanl.com/</span>
-                    <input 
-                        type="text" 
-                        class="endpoint-input" 
-                        id="endpointInput"
-                        placeholder="weather/today" 
-                        value="weather/today"
-                    >
+                    <input type="text" class="endpoint-input" id="endpointInput" placeholder="weather/today"
+                        value="weather/today">
                 </div>
 
                 <div class="fields-section">
                     <label for="fieldsInput">Response Fields (optional):</label>
-                    <input 
-                        type="text" 
-                        class="fields-input" 
-                        id="fieldsInput"
-                        placeholder="temp,condition,forecast (comma-separated)"
-                    >
+                    <input type="text" class="fields-input" id="fieldsInput"
+                        placeholder="temp,condition,forecast (comma-separated)">
                 </div>
 
                 <div class="generated-url" id="generatedUrl">
                     https://api.gyanl.com/weather/today
                 </div>
 
-                <button class="btn copy-btn" id="copyBtn">Copy URL</button>
-                <button class="btn try-btn" id="tryBtn">Preview</button>
-                <button class="btn open-url" id="openUrl">Open URL</button>
+                <button id="copyBtn">
+                    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="0.2" d="M11 5V11H21V21H27V5H11Z" fill="white" />
+                        <path d="M21 21H27V5H11V11" stroke="white" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path d="M21 11H5V27H21V11Z" stroke="white" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                    Copy URL
+                </button>
+                <button id="tryBtn">
+                    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="0.2" d="M26 5H6C5.44772 5 5 5.44772 5 6V26C5 26.5523 5.44772 27 6 27H26C26.5523 27 27 26.5523 27 26V6C27 5.44772 26.5523 5 26 5Z" fill="white"/>
+                        <path d="M26 5H6C5.44772 5 5 5.44772 5 6V26C5 26.5523 5.44772 27 6 27H26C26.5523 27 27 26.5523 27 26V6C27 5.44772 26.5523 5 26 5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 17L16 21L20 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 11V21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        
+
+                    Preview</button>
+                <button id="openUrl">
+                    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="0.2"
+                            d="M22 9H6C5.44772 9 5 9.44772 5 10V26C5 26.5523 5.44772 27 6 27H22C22.5523 27 23 26.5523 23 26V10C23 9.44772 22.5523 9 22 9Z"
+                            fill="white" />
+                        <path d="M17 15L27 5" stroke="white" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path d="M27 13L26.9988 5.00125L19 5" stroke="white" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path
+                            d="M23 17V26C23 26.2652 22.8946 26.5196 22.7071 26.7071C22.5196 26.8946 22.2652 27 22 27H6C5.73478 27 5.48043 26.8946 5.29289 26.7071C5.10536 26.5196 5 26.2652 5 26V10C5 9.73478 5.10536 9.48043 5.29289 9.29289C5.48043 9.10536 5.73478 9 6 9H15"
+                            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
+                    Open URL
+                </button>
 
 
                 <div class="response-preview" id="responsePreview">
@@ -62,8 +90,10 @@
             </div>
 
             <div class="examples">
-                <h3>💡 Example Endpoints</h3>
-                
+                <div class="pad-left">
+                    <h3>Example Endpoints</h3>
+                    <p class="secondary">Click on an example to fill the input fields.</p>
+                </div>
                 <div class="example-item" onclick="fillExample('pokemon/pikachu', 'name,type,power')">
                     <div class="example-endpoint">api.gyanl.com/pokemon/pikachu?fields=name,type,power</div>
                     <div class="example-description">Get Pokémon data with specific fields</div>
@@ -104,12 +134,12 @@
         function updateUrl() {
             const endpoint = endpointInput.value.trim() || 'default';
             const fields = fieldsInput.value.trim();
-            
+
             let url = `https://api.gyanl.com/${endpoint}`;
             if (fields) {
                 url += `?fields=${encodeURIComponent(fields)}`;
             }
-            
+
             generatedUrl.textContent = url;
         }
 
@@ -160,7 +190,5 @@
         updateUrl();
     </script>
 </body>
+
 </html>
-
-
-    
