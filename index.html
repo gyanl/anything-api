@@ -18,7 +18,7 @@
     <meta property="og:url" content="https://api.gyanl.com">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Gyan's Anything API">
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
@@ -28,10 +28,13 @@
 <body>
     <div class="container">
         <header class="header">
-            <svg class="g-logo" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M27.574 29.6311C28.4999 26.5677 29.0103 22.3222 29.3832 19.1631C27.6562 16.827 23.7235 23.5687 19.8535 25.4244C17.4948 26.5554 13.9562 25.4244 14.3535 21.5282C15.4116 11.1532 32.4785 6.27819 35.46 19.0282M27.574 29.6311C26.6858 32.57 25.2395 35.0884 22.6526 36.4642C17.3693 39.2742 13.3329 33.1945 18.6901 30.8386C21.2835 29.6981 24.4171 29.6461 27.574 29.6311ZM27.574 29.6311C31.8743 29.6106 36.9785 28.5282 39.9615 24.9244C42.7135 21.5998 43.8745 13.5131 38.1035 8.15317C30.6258 1.20807 18.6703 2.519 11.6035 8.90317C4.53675 15.2873 2.09915 29.5806 9.52516 38.2018C16.9512 46.823 36.7553 47.6401 42.3535 33.1532" stroke="white" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                
+            <svg class="g-logo" width="48" height="48" viewBox="0 0 48 48" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M27.574 29.6311C28.4999 26.5677 29.0103 22.3222 29.3832 19.1631C27.6562 16.827 23.7235 23.5687 19.8535 25.4244C17.4948 26.5554 13.9562 25.4244 14.3535 21.5282C15.4116 11.1532 32.4785 6.27819 35.46 19.0282M27.574 29.6311C26.6858 32.57 25.2395 35.0884 22.6526 36.4642C17.3693 39.2742 13.3329 33.1945 18.6901 30.8386C21.2835 29.6981 24.4171 29.6461 27.574 29.6311ZM27.574 29.6311C31.8743 29.6106 36.9785 28.5282 39.9615 24.9244C42.7135 21.5998 43.8745 13.5131 38.1035 8.15317C30.6258 1.20807 18.6703 2.519 11.6035 8.90317C4.53675 15.2873 2.09915 29.5806 9.52516 38.2018C16.9512 46.823 36.7553 47.6401 42.3535 33.1532"
+                    stroke="white" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+
             <h1>gyanl's<br>Anything API</h1>
             <p class="secondary">This API will provide a JSON response at any endpoint. Try making your own endpoint
                 below, or use one of
@@ -58,23 +61,29 @@
                 </div>
 
                 <button id="copyBtn">
+                  <span class="icon" id="copyIcon">
                     <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path opacity="0.2" d="M11 5V11H21V21H27V5H11Z" fill="white" />
-                        <path d="M21 21H27V5H11V11" stroke="white" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                        <path d="M21 11H5V27H21V11Z" stroke="white" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" />
+                      <path opacity="0.2" d="M11 5V11H21V21H27V5H11Z" fill="white" />
+                      <path d="M21 21H27V5H11V11" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M21 11H5V27H21V11Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    Copy URL
+                  </span>
+                  <span class="btn-label" id="copyLabel">Copy URL</span>
                 </button>
                 <button id="tryBtn">
                     <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path opacity="0.2" d="M26 5H6C5.44772 5 5 5.44772 5 6V26C5 26.5523 5.44772 27 6 27H26C26.5523 27 27 26.5523 27 26V6C27 5.44772 26.5523 5 26 5Z" fill="white"/>
-                        <path d="M26 5H6C5.44772 5 5 5.44772 5 6V26C5 26.5523 5.44772 27 6 27H26C26.5523 27 27 26.5523 27 26V6C27 5.44772 26.5523 5 26 5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M12 17L16 21L20 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M16 11V21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        
+                        <path opacity="0.2"
+                            d="M26 5H6C5.44772 5 5 5.44772 5 6V26C5 26.5523 5.44772 27 6 27H26C26.5523 27 27 26.5523 27 26V6C27 5.44772 26.5523 5 26 5Z"
+                            fill="white" />
+                        <path
+                            d="M26 5H6C5.44772 5 5 5.44772 5 6V26C5 26.5523 5.44772 27 6 27H26C26.5523 27 27 26.5523 27 26V6C27 5.44772 26.5523 5 26 5Z"
+                            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M12 17L16 21L20 17" stroke="white" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path d="M16 11V21" stroke="white" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+
 
                     Request</button>
                 <button id="openUrlBtn">
@@ -145,7 +154,8 @@
         </div>
 
         <div class="footer">
-            <p class="secondary">@gyanl on <a href="https://x.com/gyanl">Twitter</a> | Code on <a href="https://github.com/gyanl/anything-api">GitHub</a></p>
+            <p class="secondary">@gyanl on <a href="https://x.com/gyanl">Twitter</a> | Code on <a
+                    href="https://github.com/gyanl/anything-api">GitHub</a></p>
         </div>
     </div>
 
@@ -158,6 +168,8 @@
         const responsePreview = document.getElementById('responsePreview');
         const responseContent = document.getElementById('responseContent');
         const openUrlBtn = document.getElementById('openUrlBtn');
+        const copyIcon = document.getElementById('copyIcon');
+        const copyLabel = document.getElementById('copyLabel');
 
         function updateUrl() {
             const endpoint = endpointInput.value.trim() || 'test';
@@ -179,10 +191,13 @@
 
         function copyToClipboard() {
             navigator.clipboard.writeText(generatedUrl.textContent).then(() => {
-                const originalText = copyBtn.textContent;
-                copyBtn.textContent = '✅ Copied!';
+                // Show checkmark and "Copied!"
+                copyIcon.innerHTML = `<svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 16.5L14 22.5L24 10.5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+                copyLabel.textContent = "Copied!";
                 setTimeout(() => {
-                    copyBtn.textContent = originalText;
+                    // Revert to original
+                    copyIcon.innerHTML = `<svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.2" d="M11 5V11H21V21H27V5H11Z" fill="white" /><path d="M21 21H27V5H11V11" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M21 11H5V27H21V11Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
+                    copyLabel.textContent = "Copy URL";
                 }, 2000);
             });
         }

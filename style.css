@@ -27,6 +27,11 @@
     padding-left: var(--pad-left);
 }
 
+#copyIcon {
+    width: 24px;
+    height: 24px;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -178,8 +183,8 @@ button {
     border-radius: var(--btn-radius);
     cursor: pointer;
     font-size: var(--font-size-base);
-    margin-right: 4px;
-    margin-bottom: 8px;
+    margin-right: 6px;
+    margin-bottom: 6px;
     transition: background-color var(--transition), transform var(--transition);
 }
 
@@ -268,7 +273,7 @@ button:active {
         gap: 8px;
         font-size: 14px;
         padding: 8px 14px 8px 12px;
-        margin-right: 2px;
-        margin-bottom: 6px;
+        margin-right: 0px;
+        margin-bottom: 10px;
     }
 }
