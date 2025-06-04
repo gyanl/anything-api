@@ -1,6 +1,6 @@
 :root {
     --background-color: #3B4041;
-    --accent-color: #74bbbc;
+    --accent-color: #ffdb98;
     --text-color: #fff;
     --text-color-light: rgba(255, 255, 255, 0.7);
     --text-color-lighter: #999;
@@ -15,6 +15,7 @@
     --btn-radius: 6px;
 
     --font-size-base: 16px;
+    --font-size-smaller: 14px;
 
     --button-color: #333333;
     --button-color-dark:#282828; 
@@ -38,6 +39,10 @@ body {
     color: var(--text-color);
     background: var(--background-color);
     min-height: 100vh;
+}
+
+a {
+    color: var(--accent-color);
 }
 
 .secondary {
@@ -66,7 +71,6 @@ body {
 .header p {
     font-size: 1rem;
     opacity: 0.9;
-    margin-bottom: 30px;
 }
 
 .main-card {
@@ -193,12 +197,12 @@ button:active {
     margin-top: 30px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 
 .example-item {
     background: var(--input-bg);
-    padding: 15px 20px;
+    padding: 15px 20px 12px 20px;
     margin-bottom: 10px;
     transition: background-color var(--transition);
     border-radius: var(--input-radius);
@@ -210,6 +214,7 @@ button:active {
 }
 
 .example-endpoint {
+    font-size: var(--font-size-base);
     font-family: var(--mono-font);
     color: var(--accent-color);
     font-weight: 500;
@@ -218,7 +223,8 @@ button:active {
 
 .example-description {
     color: var(--text-color-light);
-    font-size: 14px;
+    font-size: var(--font-size-smaller);
+    padding-bottom: 4px;
 }
 
 .response-preview {
@@ -239,7 +245,7 @@ button:active {
     border-radius: 6px;
     padding: 15px;
     font-family: var(--mono-font);
-    font-size: 14px;
+    font-size: var(--font-size-smaller);
     white-space: pre-wrap;
     max-height: 300px;
     overflow-y: auto;
@@ -252,6 +258,12 @@ button:active {
 
 
 @media (max-width: 600px) {
+
+    :root {
+        --font-size-base: 14px;
+        --font-size-smaller: 12px;
+    }
+
     button {
         gap: 8px;
         font-size: 14px;

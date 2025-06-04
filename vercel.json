@@ -8,7 +8,9 @@
   },
   "routes": [
     { "src": "^/$", "dest": "/index.html" },
+    { "src": "^/(favicon\\.ico)$", "dest": "/$1" },
     { "src": "^/(style\\.css)$", "dest": "/$1" },
+    { "src": "^/(og-image\\.png)$", "dest": "/$1" },
     { "src": "^(?!/api)(.*)$", "dest": "/api/[...catchall].js" }
   ],
   "build": {

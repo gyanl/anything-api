@@ -20,7 +20,11 @@
 <body>
     <div class="container">
         <header class="header">
-            <h1>gyanl's Anything API</h1>
+            <svg class="g-logo" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M27.574 29.6311C28.4999 26.5677 29.0103 22.3222 29.3832 19.1631C27.6562 16.827 23.7235 23.5687 19.8535 25.4244C17.4948 26.5554 13.9562 25.4244 14.3535 21.5282C15.4116 11.1532 32.4785 6.27819 35.46 19.0282M27.574 29.6311C26.6858 32.57 25.2395 35.0884 22.6526 36.4642C17.3693 39.2742 13.3329 33.1945 18.6901 30.8386C21.2835 29.6981 24.4171 29.6461 27.574 29.6311ZM27.574 29.6311C31.8743 29.6106 36.9785 28.5282 39.9615 24.9244C42.7135 21.5998 43.8745 13.5131 38.1035 8.15317C30.6258 1.20807 18.6703 2.519 11.6035 8.90317C4.53675 15.2873 2.09915 29.5806 9.52516 38.2018C16.9512 46.823 36.7553 47.6401 42.3535 33.1532" stroke="white" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                
+            <h1>gyanl's<br>Anything API</h1>
             <p class="secondary">This API will provide a JSON response at any endpoint. Try making your own endpoint
                 below, or use one of
                 the examples.</p>
@@ -31,7 +35,7 @@
 
                 <div class="url-builder">
                     <span class="url-prefix">api.gyanl.com/</span>
-                    <input type="text" class="endpoint-input" id="endpointInput" placeholder="weather/today"
+                    <input type="text" class="endpoint-input" id="endpointInput" placeholder="your-endpoint"
                         value="weather/today">
                 </div>
 
@@ -64,8 +68,8 @@
                         </svg>
                         
 
-                    Preview</button>
-                <button id="openUrl">
+                    Request</button>
+                <button id="openUrlBtn">
                     <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path opacity="0.2"
                             d="M22 9H6C5.44772 9 5 9.44772 5 10V26C5 26.5523 5.44772 27 6 27H22C22.5523 27 23 26.5523 23 26V10C23 9.44772 22.5523 9 22 9Z"
@@ -79,7 +83,7 @@
                             stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
 
-                    Open URL
+                    Open
                 </button>
 
 
@@ -94,31 +98,46 @@
                     <h3>Example Endpoints</h3>
                     <p class="secondary">Click on an example to fill the input fields.</p>
                 </div>
+
+                <div class="example-item" onclick="fillExample('fun-fact/yourname', '')">
+                    <div class="example-description">Fun fact about yourself</div>
+                    <div class="example-endpoint">api.gyanl.com/fun-fact/yourname</div>
+                </div>
+
+                <div class="example-item" onclick="fillExample('demotivational-quote', '')">
+                    <div class="example-description">Demotivational quote</div>
+                    <div class="example-endpoint">api.gyanl.com/demotivational-quote</div>
+                </div>
+
                 <div class="example-item" onclick="fillExample('pokemon/pikachu', 'name,type,power')">
-                    <div class="example-endpoint">api.gyanl.com/pokemon/pikachu?fields=name,type,power</div>
                     <div class="example-description">Get Pokémon data with specific fields</div>
+                    <div class="example-endpoint">api.gyanl.com/pokemon/pikachu?fields=name,type,power</div>
                 </div>
 
                 <div class="example-item" onclick="fillExample('recipe/pizza', 'ingredients,time,difficulty')">
-                    <div class="example-endpoint">api.gyanl.com/recipe/pizza?fields=ingredients,time,difficulty</div>
                     <div class="example-description">Pizza recipe with cooking details</div>
+                    <div class="example-endpoint">api.gyanl.com/recipe/pizza?fields=ingredients,time,difficulty</div>
                 </div>
 
-                <div class="example-item" onclick="fillExample('motivational/quote', '')">
-                    <div class="example-endpoint">api.gyanl.com/motivational/quote</div>
-                    <div class="example-description">Get an inspiring quote</div>
+                <div class="example-item" onclick="fillExample('color-palette', 'hex,name,description')">
+                    <div class="example-description">Generate a color with a name and description</div>
+                    <div class="example-endpoint">api.gyanl.com/color/palette?fields=hex,name,description</div>
                 </div>
 
-                <div class="example-item" onclick="fillExample('color/palette', 'hex,name,mood')">
-                    <div class="example-endpoint">api.gyanl.com/color/palette?fields=hex,name,mood</div>
-                    <div class="example-description">Generate a color palette</div>
+                <div class="example-item" onclick="fillExample('petname/funny', 'name,animal,trait')">
+                    <div class="example-description">Generate a funny pet name</div>
+                    <div class="example-endpoint">api.gyanl.com/petname/funny?fields=name,animal,trait</div>
                 </div>
 
-                <div class="example-item" onclick="fillExample('startup/idea', 'name,description,market')">
-                    <div class="example-endpoint">api.gyanl.com/startup/idea?fields=name,description,market</div>
-                    <div class="example-description">Get a creative startup idea</div>
+                <div class="example-item" onclick="fillExample('horoscope/gemini', 'day,love,career')">
+                    <div class="example-description">Daily horoscope</div>
+                    <div class="example-endpoint">api.gyanl.com/horoscope/gemini?fields=day,love,career</div>
                 </div>
             </div>
+        </div>
+
+        <div class="footer">
+            <p class="secondary">@gyanl on <a href="https://x.com/gyanl">Twitter</a> | Code on <a href="https://github.com/gyanl/anything-api">GitHub</a></p>
         </div>
     </div>
 
@@ -130,9 +149,10 @@
         const tryBtn = document.getElementById('tryBtn');
         const responsePreview = document.getElementById('responsePreview');
         const responseContent = document.getElementById('responseContent');
+        const openUrlBtn = document.getElementById('openUrlBtn');
 
         function updateUrl() {
-            const endpoint = endpointInput.value.trim() || 'default';
+            const endpoint = endpointInput.value.trim() || 'test';
             const fields = fieldsInput.value.trim();
 
             let url = `https://api.gyanl.com/${endpoint}`;
@@ -177,14 +197,14 @@
         }
 
         function openUrl() {
-            window.open(generatedUrl.textContent, '_blank');
+            window.open(generatedUrl.textContent, '_blank').focus();
         }
 
         endpointInput.addEventListener('input', updateUrl);
         fieldsInput.addEventListener('input', updateUrl);
         copyBtn.addEventListener('click', copyToClipboard);
         tryBtn.addEventListener('click', tryAPI);
-        openUrl.addEventListener('click', openUrl);
+        openUrlBtn.addEventListener('click', openUrl);
 
         // Initialize
         updateUrl();
