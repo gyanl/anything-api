@@ -1,9 +1,8 @@
-const OpenAI = require('openai');
+const Anthropic = require('@anthropic-ai/sdk');
 
-// Initialize OpenAI client (replace with your API key)
-// It's recommended to use environment variables for API keys
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+// Initialize Anthropic client using environment variable
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
 module.exports = async (req, res) => {
@@ -21,24 +20,28 @@ module.exports = async (req, res) => {
 
   try {
     // System prompt to guide the AI
-    let systemPrompt = `You are a creative AI assistant that lives at api.gyanl.com and generates JSON responses for any endpoint. Your responses must be in well-structured JSON format with the least fields possible. The user is requesting information for the endpoint: ${path}.`;
+    let systemPrompt = `You are a creative AI assistant that lives at api.gyanl.com and generates JSON responses for any endpoint. Respond ONLY with a single valid JSON object. Keep fields minimal. The user is requesting information for the endpoint: ${path}.`;
 
     if (fields) {
       systemPrompt += ` Please include only the following fields in your response: ${fields}.`;
     }
 
-    // Actual AI call
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4-1106-preview", // Use gpt-4.1-mini or gpt-4-1106-preview as available
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: `Generate a creative JSON response for the endpoint: ${path}` }
-      ],
-      response_format: { type: "json_object" },
+    // Actual AI call (Anthropic Claude 3 Haiku)
+    const completion = await anthropic.messages.create({
+      model: "claude-3-5-haiku-20241022",
       max_tokens: 400,
+      system: systemPrompt,
+      messages: [
+        { role: "user", content: `Generate a creative JSON response for the endpoint: ${path}` }
+      ]
     });
 
-    let aiResponse = completion.choices[0].message.content;
+    // Extract text content from Anthropic response
+    let aiResponse = "";
+    if (completion && Array.isArray(completion.content)) {
+      const textBlock = completion.content.find(b => b && b.type === 'text');
+      aiResponse = textBlock ? textBlock.text : "";
+    }
 
     // Attempt to parse the AI response to ensure it's valid JSON
     let jsonResponse;
@@ -64,8 +67,9 @@ module.exports = async (req, res) => {
     let errorMessage = "An unexpected error occurred.";
     let statusCode = 500;
 
-    if (error.response) { // Errors from OpenAI API
-      errorMessage = error.response.data.error || errorMessage;
+    if (error.response) { // Errors from API client
+      // Anthropic may return structured response data
+      errorMessage = (error.response.data && (error.response.data.error || error.response.data.message)) || errorMessage;
       statusCode = error.response.status || statusCode;
     } else if (error.request) { // Request made but no response received
       errorMessage = "No response received from AI service.";
