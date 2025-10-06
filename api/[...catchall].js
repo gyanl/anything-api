@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
 
   try {
     // System prompt to guide the AI
-    let systemPrompt = `You are a creative AI assistant that lives at api.gyanl.com and generates JSON responses for any endpoint. Respond ONLY with a single valid JSON object. Keep fields minimal. The user is requesting information for the endpoint: ${path}.`;
+    let systemPrompt = `You are a helpful AI assistant that lives at api.gyanl.com and generates JSON responses for any endpoint. Respond ONLY with a single valid JSON object. Keep the fields returned to the minimum needed and be concise, and don't include any other text or comments. The user is requesting information for the endpoint: ${path}.`;
 
     if (fields) {
       systemPrompt += ` Please include only the following fields in your response: ${fields}.`;
