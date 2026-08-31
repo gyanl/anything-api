@@ -30,37 +30,28 @@ module.exports = async (req, res) => {
       systemPrompt += ` Please include only the following fields in your response: ${fields}.`;
     }
 
-    const requestBody = JSON.stringify({
-      systemInstruction: { parts: [{ text: systemPrompt }] },
-      contents: [
-        { parts: [{ text: `Generate a creative JSON response for the endpoint: ${path}` }] }
-      ],
-      generationConfig: {
-        // Ask for raw JSON, so we never get a ```json code fence back
-        responseMimeType: 'application/json',
-        // This is a toy endpoint — don't spend tokens thinking about it
-        thinkingConfig: { thinkingLevel: 'low' },
-        maxOutputTokens: 1024,
-        temperature: 0.8
-      }
+    // Actual AI call (Google Gemini 3.7 Flash)
+    const response = await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-goog-api-key': process.env.GEMINI_API_KEY
+      },
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: systemPrompt }] },
+        contents: [
+          { parts: [{ text: `Generate a creative JSON response for the endpoint: ${path}` }] }
+        ],
+        generationConfig: {
+          // Ask for raw JSON, so we never get a ```json code fence back
+          responseMimeType: 'application/json',
+          // This is a toy endpoint — don't spend tokens thinking about it
+          thinkingConfig: { thinkingLevel: 'low' },
+          maxOutputTokens: 1024,
+          temperature: 0.8
+        }
+      })
     });
-
-    // Actual AI call (Google Gemini 3.7 Flash). The model is popular enough to
-    // return 503 "high demand" fairly often, so retry a couple of times.
-    let response;
-    for (let attempt = 0; attempt < 3; attempt++) {
-      response = await fetch(ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-goog-api-key': process.env.GEMINI_API_KEY
-        },
-        body: requestBody
-      });
-
-      if (response.status !== 503 && response.status !== 429) break;
-      if (attempt < 2) await new Promise(r => setTimeout(r, 800 * (attempt + 1)));
-    }
 
     if (!response.ok) {
       const body = await response.text();
