@@ -14,7 +14,7 @@ Gyan's Anything API is a serverless, catch-all API that generates creative, cont
 - **Catch-All API:** Any endpoint path returns a creative JSON response.
 - **Optionally Specify Return Fields:** Use the `fields` query parameter to request specific fields in the response.
 - **Live Web Playground:** Build, and test endpoints directly in the browser. One-click copy and open for generated URLs.
-- **Gemini-Powered:** Uses Gemini 3.7 Flash to generate playful, contextual, and valid JSON.
+- **Gemini-Powered:** Uses Gemini 3.6 Flash to generate playful, contextual, and valid JSON.
 
 ## API Usage
 
@@ -94,7 +94,7 @@ This project is designed for [Vercel](https://vercel.com/):
 ## How It Works
 
 - All requests to `/api/*` are handled by a single serverless function (`api/[...catchall].js`).
-- The function builds a system prompt and calls Gemini 3.7 Flash to generate a creative JSON response.
+- The function builds a system prompt and calls Gemini 3.6 Flash to generate a creative JSON response.
 - If the `fields` parameter is provided, the response is filtered to include only those fields.
 - The web interface (`index.html`) provides a user-friendly way to build and test endpoints.
 
