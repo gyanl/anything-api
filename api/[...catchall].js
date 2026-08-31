@@ -1,5 +1,9 @@
-const MODEL = 'gemini-3.7-flash';
-const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
+const Anthropic = require('@anthropic-ai/sdk');
+
+// Initialize Anthropic client using environment variable
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
+});
 
 module.exports = async (req, res) => {
   // Enable CORS
@@ -11,16 +15,8 @@ module.exports = async (req, res) => {
     return res.status(200).end();
   }
 
-  const { fields } = req.query;
+  const { catchall, fields } = req.query;
   const path = req.url.split('?')[0]; // Get the path part of the URL
-
-  if (!process.env.GEMINI_API_KEY) {
-    console.error('GEMINI_API_KEY is not set in environment variables');
-    return res.status(500).json({
-      error: 'Server configuration error.',
-      path: path
-    });
-  }
 
   try {
     // System prompt to guide the AI
@@ -30,47 +26,35 @@ module.exports = async (req, res) => {
       systemPrompt += ` Please include only the following fields in your response: ${fields}.`;
     }
 
-    // Actual AI call (Google Gemini 3.7 Flash)
-    const response = await fetch(ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-goog-api-key': process.env.GEMINI_API_KEY
-      },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: systemPrompt }] },
-        contents: [
-          { parts: [{ text: `Generate a creative JSON response for the endpoint: ${path}` }] }
-        ],
-        generationConfig: {
-          // Ask for raw JSON, so we never get a ```json code fence back
-          responseMimeType: 'application/json',
-          // This is a toy endpoint — don't spend tokens thinking about it
-          thinkingConfig: { thinkingLevel: 'low' },
-          maxOutputTokens: 1024,
-          temperature: 0.8
-        }
-      })
+    // Actual AI call (Anthropic Claude 3 Haiku)
+    const completion = await anthropic.messages.create({
+      model: "claude-haiku-4-5",
+      max_tokens: 400,
+      system: systemPrompt,
+      messages: [
+        { role: "user", content: `Generate a creative JSON response for the endpoint: ${path}` },
+        // Prefill the reply with an opening brace, so the model continues a JSON
+        // object instead of opening a ```json code fence.
+        { role: "assistant", content: "{" }
+      ]
     });
 
-    if (!response.ok) {
-      const body = await response.text();
-      console.error('Gemini API error:', response.status, body);
-      return res.status(response.status).json({
-        error: 'The AI service returned an error.',
-        status: response.status,
-        path: path
-      });
+    // Extract text content from Anthropic response
+    let aiResponse = "";
+    if (completion && Array.isArray(completion.content)) {
+      const textBlock = completion.content.find(b => b && b.type === 'text');
+      aiResponse = textBlock ? textBlock.text : "";
     }
 
-    const completion = await response.json();
-
-    // Extract text content from the Gemini response
-    const parts = completion?.candidates?.[0]?.content?.parts || [];
-    let aiResponse = parts.map(p => p.text).filter(Boolean).join('').trim();
-
-    // Strip a code fence, in case one slips through despite responseMimeType
+    // Put back the brace we prefilled, then strip any code fence or stray prose
+    // around the object, in case one slips through anyway.
+    aiResponse = ("{" + aiResponse).trim();
     aiResponse = aiResponse.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/, '').trim();
+    const firstBrace = aiResponse.indexOf('{');
+    const lastBrace = aiResponse.lastIndexOf('}');
+    if (firstBrace !== -1 && lastBrace > firstBrace) {
+      aiResponse = aiResponse.slice(firstBrace, lastBrace + 1);
+    }
 
     // Attempt to parse the AI response to ensure it's valid JSON
     let jsonResponse;
@@ -79,20 +63,37 @@ module.exports = async (req, res) => {
     } catch (parseError) {
       console.error('Error parsing AI JSON response:', parseError);
       // Fallback if AI response is not valid JSON
-      return res.status(500).json({
+      jsonResponse = {
         error: "AI response was not valid JSON.",
         originalResponse: aiResponse,
         details: "The AI failed to generate a correctly formatted JSON object."
-      });
+      };
+      res.status(500).json(jsonResponse);
+      return;
     }
 
     res.status(200).json(jsonResponse);
 
   } catch (error) {
     console.error('Error processing request:', error);
-    res.status(500).json({
-      error: error.message || 'An unexpected error occurred.',
-      path: path
+    // Basic error handling
+    let errorMessage = "An unexpected error occurred.";
+    let statusCode = 500;
+
+    if (error.response) { // Errors from API client
+      // Anthropic may return structured response data
+      errorMessage = (error.response.data && (error.response.data.error || error.response.data.message)) || errorMessage;
+      statusCode = error.response.status || statusCode;
+    } else if (error.request) { // Request made but no response received
+      errorMessage = "No response received from AI service.";
+    } else { // Other errors
+      errorMessage = error.message || errorMessage;
+    }
+
+    res.status(statusCode).json({
+      error: errorMessage,
+      path: path,
+      details: error.stack // Consider removing or simplifying stack trace in production
     });
   }
-};
+}; 

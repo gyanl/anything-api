@@ -4,7 +4,7 @@ Turn any idea into an API endpoint with AI-powered JSON responses.
 
 ## Overview
 
-Gyan's Anything API is a serverless, catch-all API that generates creative, contextual JSON responses for any endpoint using Google's Gemini models. It also includes a modern, responsive web interface for building and testing endpoints live.
+Gyan's Anything API is a serverless, catch-all API that generates creative, contextual JSON responses for any endpoint using OpenAI's GPT models. It also includes a modern, responsive web interface for building and testing endpoints live.
 
 - **API:** [https://api.gyanl.com](https://api.gyanl.com)
 - **Demo:** [https://api.gyanl.com](https://api.gyanl.com)
@@ -14,7 +14,7 @@ Gyan's Anything API is a serverless, catch-all API that generates creative, cont
 - **Catch-All API:** Any endpoint path returns a creative JSON response.
 - **Optionally Specify Return Fields:** Use the `fields` query parameter to request specific fields in the response.
 - **Live Web Playground:** Build, and test endpoints directly in the browser. One-click copy and open for generated URLs.
-- **Gemini-Powered:** Uses Gemini 3.7 Flash to generate playful, contextual, and valid JSON.
+- **OpenAI-Powered:** Uses GPT-4.1-mini to generate playful, contextual, and valid JSON.
 
 ## API Usage
 
@@ -67,7 +67,7 @@ The web interface lets you:
 ### Prerequisites
 - Node.js 18+
 - [Vercel CLI](https://vercel.com/docs/cli) (for local serverless function testing)
-- Gemini API key (set as `GEMINI_API_KEY` in your environment)
+- OpenAI API key (set as `OPENAI_API_KEY` in your environment)
 
 ### Setup
 ```bash
@@ -88,13 +88,13 @@ The web interface will be available at `http://localhost:3000` and the API at `h
 
 This project is designed for [Vercel](https://vercel.com/):
 - Push to your GitHub repo
-- Connect to Vercel and set the `GEMINI_API_KEY` environment variable
+- Connect to Vercel and set the `OPENAI_API_KEY` environment variable
 - Deploy!
 
 ## How It Works
 
 - All requests to `/api/*` are handled by a single serverless function (`api/[...catchall].js`).
-- The function builds a system prompt and calls Gemini 3.7 Flash to generate a creative JSON response.
+- The function builds a system prompt and calls OpenAI's GPT-4 to generate a creative JSON response.
 - If the `fields` parameter is provided, the response is filtered to include only those fields.
 - The web interface (`index.html`) provides a user-friendly way to build and test endpoints.
 
