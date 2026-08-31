@@ -32,7 +32,10 @@ module.exports = async (req, res) => {
       max_tokens: 400,
       system: systemPrompt,
       messages: [
-        { role: "user", content: `Generate a creative JSON response for the endpoint: ${path}` }
+        { role: "user", content: `Generate a creative JSON response for the endpoint: ${path}` },
+        // Prefill the reply with an opening brace, so the model continues a JSON
+        // object instead of opening a ```json code fence.
+        { role: "assistant", content: "{" }
       ]
     });
 
@@ -41,6 +44,16 @@ module.exports = async (req, res) => {
     if (completion && Array.isArray(completion.content)) {
       const textBlock = completion.content.find(b => b && b.type === 'text');
       aiResponse = textBlock ? textBlock.text : "";
+    }
+
+    // Put back the brace we prefilled, then strip any code fence or stray prose
+    // around the object, in case one slips through anyway.
+    aiResponse = ("{" + aiResponse).trim();
+    aiResponse = aiResponse.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/, '').trim();
+    const firstBrace = aiResponse.indexOf('{');
+    const lastBrace = aiResponse.lastIndexOf('}');
+    if (firstBrace !== -1 && lastBrace > firstBrace) {
+      aiResponse = aiResponse.slice(firstBrace, lastBrace + 1);
     }
 
     // Attempt to parse the AI response to ensure it's valid JSON
