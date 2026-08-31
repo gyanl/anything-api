@@ -18,6 +18,8 @@ const BLOCKED_PATTERNS = [
   // Exact scanner targets only — as substrings these collide with perfectly
   // good endpoints like /password/generator or /dashboard/ideas
   /^\/(admin|administrator|login|wp-admin|cpanel|webmail|shell|config|server-status)\/?$/i,
+  // System paths, which is what /../../etc/passwd normalises to in transit
+  /^\/(etc|proc|sys|root|boot|usr\/bin|var\/log)\//i,
   /(\.\.|%2e%2e|\/\/)/i,                    // path traversal and doubled slashes
   /[<>{}|\\^`]/,                            // characters no honest endpoint uses
 ];
