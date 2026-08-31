@@ -5,6 +5,38 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
+// Vulnerability scanners hammer this API looking for leaked secrets and admin
+// panels. Every one of those hits used to cost a real Claude call, so they get
+// turned away here, before any money is spent.
+const BLOCKED_PATTERNS = [
+  /\/\./,                                   // dotfiles: /.env, /.git/config, /.aws/credentials
+  /\.(php|asp|aspx|jsp|cgi|pl|sh|sql|bak|old|backup|swp|zip|tar|gz|rar|log|ini|conf|pem|key)$/i,
+  /\b(wp-admin|wp-login|wp-content|wp-includes|xmlrpc)\b/i,
+  /\b(phpmyadmin|phpinfo|adminer|myadmin)\b/i,
+  /\b(cgi-bin|node_modules|actuator|jenkins|solr)\b/i,
+  /\b(id_rsa|authorized_keys)\b/i,
+  // Exact scanner targets only — as substrings these collide with perfectly
+  // good endpoints like /password/generator or /dashboard/ideas
+  /^\/(admin|administrator|login|wp-admin|cpanel|webmail|shell|config|server-status)\/?$/i,
+  /(\.\.|%2e%2e|\/\/)/i,                    // path traversal and doubled slashes
+  /[<>{}|\\^`]/,                            // characters no honest endpoint uses
+];
+
+// Asked for by browsers and crawlers, never worth an AI call
+const STATIC_PATHS = {
+  '/robots.txt': { type: 'text/plain', body: 'User-agent: *\nDisallow: /\n' },
+  '/favicon.ico': { type: 'image/x-icon', body: '' },
+  '/sitemap.xml': { type: 'application/xml', body: '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>' },
+};
+
+function isBlocked(path) {
+  // Anything absurdly long is a scanner or a mistake, not a real endpoint
+  if (path.length > 200) return true;
+  // More than 4 segments deep is well past what this API is for
+  if (path.split('/').filter(Boolean).length > 4) return true;
+  return BLOCKED_PATTERNS.some(pattern => pattern.test(path));
+}
+
 module.exports = async (req, res) => {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -17,6 +49,23 @@ module.exports = async (req, res) => {
 
   const { catchall, fields } = req.query;
   const path = req.url.split('?')[0]; // Get the path part of the URL
+
+  // Serve the boring standard files without involving the AI
+  const staticFile = STATIC_PATHS[path.toLowerCase()];
+  if (staticFile) {
+    res.setHeader('Content-Type', staticFile.type);
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+    return res.status(200).send(staticFile.body);
+  }
+
+  // Turn away scanners before spending anything on them
+  if (isBlocked(path)) {
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+    return res.status(404).json({
+      error: 'Not found.',
+      message: 'This API invents responses for playful endpoints, not this one.'
+    });
+  }
 
   try {
     // System prompt to guide the AI
