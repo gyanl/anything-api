@@ -1,5 +1,4 @@
-// Overridable from the Vercel dashboard, so the model can be swapped without a deploy
-const MODEL = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
+const MODEL = 'gemini-3.7-flash';
 const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
 module.exports = async (req, res) => {
@@ -46,8 +45,8 @@ module.exports = async (req, res) => {
       }
     });
 
-    // Actual AI call. Flash models return 503 "high demand" under load, so
-    // retry a couple of times before giving up.
+    // Actual AI call (Google Gemini 3.7 Flash). The model is popular enough to
+    // return 503 "high demand" fairly often, so retry a couple of times.
     let response;
     for (let attempt = 0; attempt < 3; attempt++) {
       response = await fetch(ENDPOINT, {
